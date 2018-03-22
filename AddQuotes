@@ -1,0 +1,104 @@
+
+<!-- This simple program adds quotes to all items on a list to query them in SQL -->
+
+Read more: https://html.com/tags/comment-tag/#ixzz5AW7JiKvj
+<!DOCTYPE html>
+<html>
+<body>
+
+<h2>Format your IDs for SQL queries </h2>
+
+<p>Please input the list of values</p>
+
+<textarea id="values" rows="20" cols="50"></textarea>
+
+<button type="button" onclick="addQuotes()">Submit</button>
+
+<div style="position: relative; left: 9999px" id="div1" ></div>
+<button id="button1" onclick="CopyToClipboard('div1')">Click to copy</button>
+
+
+<p id="returnList"></p>
+
+<script>
+var text;
+
+function addQuotes() {
+    var x, array, output, asize ;
+    output = '';	
+    // Get the value of the input field with id="numb"
+    x = document.getElementById("values").value;
+	console.log(x);
+    //Break it into an array
+    array = x.split("\n");
+	for (i = 0;i < array.length; i++) {
+		array[i] = array[i].trim().replace(/\/n/g, '');	
+		array[i] = array[i].trim().replace(/\/r/g, '');			
+		if (array[i] == '') {
+			array.splice(i, 1);
+		}
+	}
+    console.log(array);
+	for (i = 0; i < (array.length); i++) {	
+		if (array[i] != '') {
+			 if (i < (array.length) -1) {
+				output+= "'"+array[i] + "',"+'<br/>';
+			 }
+			 else{
+				output+= "'"+array[i] + "'";
+			 }
+		}
+	}
+      
+     
+
+	//Output is value plus quotes
+    text = output;
+    document.getElementById("returnList").innerHTML = text;
+  
+}
+
+	//COPY TO CLIPBOARD
+    function CopyToClipboard(containerid) {
+		text = text.replace(/<br\/>/g, '');
+		var myDiv = document.getElementById('div1');
+		console.log(text);
+		myDiv.textContent = text;			
+		window.getSelection().removeAllRanges();
+		if (document.selection) {  // IE SPECIFIC			
+			var range = document.body.createTextRange();
+			range.moveToElementText(document.getElementById(containerid));
+			range.select().createTextRange();
+			document.execCommand("copy"); 
+		} 		
+		else if (window.getSelection) { // OTHERS			
+			var range = document.createRange();
+			range.selectNode(document.getElementById(containerid));
+			window.getSelection().addRange(range);
+			document.execCommand("copy");			 
+		}
+		alert("text copied")
+		window.getSelection().removeAllRanges();
+	}
+    
+    
+    
+</script>
+
+
+
+
+
+
+</body>
+
+<footer>
+  
+  </br>
+  </br>
+  <p>Kore Software - 2017</p>
+  <p><a href="mailto:bruno.morelli@koresoftware.com">  bruno.morelli@koresoftware.com</a>.</p>
+</footer>
+</html> 
+
+
